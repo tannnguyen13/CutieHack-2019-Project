@@ -5,60 +5,58 @@ Combat::Combat(Character& player, Character& enemy) {
 	this->enemy = enemy;
 }
 
-void Combat::processCommand(Command cmd) {
-	CommandWord commandWord = cmd.getCommandWord();
-	switch (commandWord) {
-		case CommandWord::UNKNOWN: {
+void Combat::processCommand(string s) {
+	Command commandWord = Command(s);
+	if(commandWord.getCommandWord() == "ATTACK"){
+		if (player.getSpeed() > enemy.getSpeed()) {
+			attack();
+			bestEnemyMove();
+			return;
+		}
+		else {
+			bestEnemyMove();
+			attack();
+			return;
+		}
+	}
+	else if(commandWord.getCommandWord() == "DEFEND"){
+		if (player.getSpeed() > enemy.getSpeed()) {
+			defend();
+			bestEnemyMove();
+			return;
+		}
+		else {
+			bestEnemyMove();
+			defend();
+			return;
+		}
+	}
+	else if(commandWord.getCommandWord() == "MAGIC") {
+		if (player.getSpeed() > enemy.getSpeed()) {
+			magic();
+			bestEnemyMove();
+			return;
+		}
+		else {
+			bestEnemyMove();
+			magic();
+			return;
+		}
+	}
+	else if (commandWord.getCommandWord() == "ITEM") {
+		if (player.getSpeed() > enemy.getSpeed()) {
+			item();
+			bestEnemyMove();
+			return;
+		}
+		else {
+			bestEnemyMove();
+			item();
+			return;
+		}
+	}
+	else {
 			cout << "I don't know what you mean... " << endl;
-		}
-		case CommandWord::ATTACK: {
-			if (player.getSpeed() > enemy.getSpeed()) {
-				attack();
-				bestEnemyMove();
-				break;
-			}
-			else {
-				bestEnemyMove();
-				attack();
-				break;
-			}
-		}
-		case CommandWord::DEFEND:{
-			if (player.getSpeed() > enemy.getSpeed()) {
-				defend();
-				bestEnemyMove();
-				break;
-			}
-			else {
-				bestEnemyMove();
-				defend();
-				break;
-			}
-		}
-		case CommandWord::MAGIC: {
-			if (player.getSpeed() > enemy.getSpeed()) {
-				magic();
-				bestEnemyMove();
-				break;
-			}
-			else {
-				bestEnemyMove();
-				magic();
-				break;
-			}
-		}
-		case CommandWord::ITEM: {
-			if (player.getSpeed() > enemy.getSpeed()) {
-				item();
-				bestEnemyMove();
-				break;
-			}
-			else {
-				bestEnemyMove();
-				item();
-				break;
-			}
-		}
 	}
 }
 
@@ -66,8 +64,9 @@ void Combat::engage() {
 	cout << enemy.getName() << + " is battling you!" << endl;
 	while (player.getAlive() && enemy.getAlive()) {
 		cout << "ATTACK\n DEFEND\n MAGIC\n ITEM\n" << endl;
-		Command command = parser.getCommand();
-		processCommand(command);
+		string s = "";
+		cin >> s;
+		processCommand(s);
 	}
 }
 

@@ -15,7 +15,7 @@ class Combat {
 private:
 	Character player;
 	Character enemy;
-	void processCommand(Command);
+	void processCommand(string s);
 
 public:
 	Combat(Character&, Character&);
