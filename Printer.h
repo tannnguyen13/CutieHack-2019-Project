@@ -16,7 +16,7 @@ public:
         cin >> thing;
         int delay = 200;
         for(int i = 0; i < thing.size(); i++) {
-            cout << thing[i];
+            cout << thing[i] << flush;
             this_thread::sleep_for(chrono::milliseconds(delay));
         }
     }
