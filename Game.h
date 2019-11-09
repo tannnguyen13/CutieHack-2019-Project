@@ -1,17 +1,28 @@
 #ifndef CUTIEHACK_2019_PROJECT_ITEM_H
 #define CUTIEHACK_2019_PROJECT_ITEM_H
-#include <string>
+
 using namespace std;
 
 class Game{
     public:
-        Item(int, int);
-        const getStrength();
-        const getDefense();
-        setHealth();
+        Game::Game();
+        void play();
+
     private:
-        int strength;
-        int defense;
+        void createRooms();
+        boolean alive();
+        void printWelcome();
+        boolean processCommand(Command);
+        void printHelp();
+        void engage(Command);
+        void goRoom(Command);
+        boolean quit(Command);
+        void attack(Command);
+        void grab(Command);
+        void sneak(Command);
+        void use(Command);
+        void equip(Command);
+        
 };
 
 
