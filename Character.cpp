@@ -5,185 +5,215 @@
 using namespace std;
 
 Character::Character() {
-    name = "none";
-    hp = 0;
-    orighp = 0;
-    mana = 0;
-    level = 0;
-    experience = 0;
-    hitRate = 0;
-    damageTaken = 0;
-    critChance = 0;
-    defense = 0;
-    speed = 0;
-    magic = 0;
-    strength = 0;
-    alive = false;
+	name = "none";
+	hp = 0;
+	orighp = 0;
+	mana = 0;
+	level = 0;
+	experience = 0;
+	hitRate = 0;
+	damageTaken = 0;
+	critChance = 0;
+	defense = 0;
+	speed = 0;
+	magic = 0;
+	strength = 0;
+	alive = false;
 }
+
+Character::Character(string n) {
+	name = n;
+	hp = 100;
+	orighp = 100;
+	mana = 100;
+	level = 0;
+	experience = 0;
+	hitRate = 75;
+	damageTaken = 0;
+	critChance = 10;
+	defense = 8;
+	speed = 5;
+	magic = 10;
+	strength = 15;
+	alive = true
+}
+
 Character::Character(string n, double h, int mn, int lvl, int exp, int hR, double dmg, double crit, int def, int s, int mg, int str, bool a) {
-    name = n;
-    hp = h;
-    orighp = h;
-    mana = mn;
-    level = lvl;
-    experience = exp;
-    hitRate = hR;
-    damageTaken = dmg;
-    critChance = crit;
-    defense = def;
-    speed = s;
-    magic = mg;
-    strength = str;
-    alive = a;
+	name = n;
+	hp = h;
+	orighp = h;
+	mana = mn;
+	level = lvl;
+	experience = exp;
+	hitRate = hR;
+	damageTaken = dmg;
+	critChance = crit;
+	defense = def;
+	speed = s;
+	magic = mg;
+	strength = str;
+	alive = a;
 }
 
 void Character::increaseLvL(int exp) {
-    experience += exp;
-    if (level == 1) {
-        if (experience > 20)
-            level++;
-            experience -= 20;
-    }else if ( level == 2) {
-        if (experience > 40) {
-            level++;
-            experience -= 40;
-        }
-    }else if (level == 3) {
-        if (experience >= 60) {
-            level++;
-            experience -= 60;
+	experience += exp;
+	if (level == 1) {
+		if (experience > 20)
+			level++;
+		experience -= 20;
+	}
+	else if (level == 2) {
+		if (experience > 40) {
+			level++;
+			experience -= 40;
+		}
+	}
+	else if (level == 3) {
+		if (experience >= 60) {
+			level++;
+			experience -= 60;
 
-        }
-    }else if (level == 4) {
-        if (experience >= 80) {
-            level++;
-            experience -= 80;
-        }
-    }else if (level == 5) {
-        if (experience >= 100) {
-            return;
-        }
-    }
+		}
+	}
+	else if (level == 4) {
+		if (experience >= 80) {
+			level++;
+			experience -= 80;
+		}
+	}
+	else if (level == 5) {
+		if (experience >= 100) {
+			return;
+		}
+	}
 }
 
-void Character::takeDamage(int dmg) {
-    hp -= dmg;
+void Character::takeDamage(double dmg) {
+	hp -= dmg;
 }
 
 void Character::addHP(double h) {
-    hp += h;
+	hp += h;
 }
 
 void Character::addMana(int m) {
-    mana += mn;
+	mana += m;
 }
 
 void Character::addStrength(int s) {
-    strength += s;
+	strength += s;
 }
 
 void Character::addMagic(int m) {
-    magic += m;
+	magic += m;
 }
 
 void Character::addDefense(int d) {
-    defense += d;
+	defense += d;
 }
 
-void Character::addHitRate(double h) {
-    hitrate += h;
+void Character::addHitRate(int h) {
+	hitRate += h;
 }
 
 void Character::addCritChance(double c) {
-    critchance = critchance * (1 + c);
+	critChance = critChance * (1 + c);
 }
 
 void Character::status() {
-    cout << "HP: " << hp << "/" << orighp << endl;
-    cout << "Mana: " << mn << endl;
+	cout << "HP: " << hp << "/" << orighp << endl;
+	cout << "Mana: " << mana << endl;
 }
 void Character::equip(string n) {
-    equipped.insert(name, inventory.erase(name));
+	equipped.insert(name, inventory.erase(name));
 }
 
 bool Character::checkEquip(string n) {
-    if (equipped.find(n) == equipped.end())
-        return false;
-    else
-        return true;
+	if (equipped.find(n) == equipped.end())
+		return false;
+	else
+		return true;
 }
 
 const string Character::getName() const {
-    return name;
+	return name;
 }
 
-const int Character::getHP() const{
-    return hp;
+const double Character::getHP() const {
+	return hp;
 }
 
 const int Character::getMana() const {
-    return mana;
+	return mana;
 }
 
 const int Character::getLevel() const {
-    return level;
+	return level;
 }
-        
+
 const int Character::getExperience() const {
-    return experience;
+	return experience;
 }
 
 const int Character::getHitRate() const {
-    return hitrate;
-}
-        
-const int Character::getDamageTaken() const {
-    return damageTaken;
+	return hitRate;
 }
 
-const int Character::getCritChance() const {
-    return critChance;
+const double Character::getDamageTaken() const {
+	return damageTaken;
+}
+
+const double Character::getCritChance() const {
+	return critChance;
 }
 
 const int Character::getDefense() const {
-    return defense;
+	return defense;
 }
 
 const int Character::getSpeed() const {
-    return speed;
+	return speed;
 }
-        
+
 const int Character::getMagic() const {
-    return magic;
+	return magic;
 }
-        
+
 const int Character::getStrength() const {
-    return strength;
+	return strength;
 }
-    
+
 const bool Character::getAlive() const {
-    if (hp == 0) {
-        return false;
-    }
-    return true;
+	if (hp == 0) {
+		return false;
+	}
+	return true;
 }
 
 const Item Character::getEquip(string n) {
-    return equipped.at(n);
+	return equipped.at(n);
 }
-        
-string Character::getItemKey const{
-    string inventoryStr = "Inventory: ";
-    unordered_map<string, Item>::iterator itr; 
-    for (itr = inventory.begin(); itr != inventory.end(); itr++) { 
-        inventoryStr += itr->first + ' ';
-    }  
 
-    string equippedStr = "Equipped: ";
-    unordered_map<string, Item>::iterator itr; 
-    for (itr = equipped.begin(); itr != equipped.end(); itr++) { 
-        equippedStr += itr->first + ' ';
-    }  
+string Character::getItemKey() const{
+	string inventoryStr = "Inventory: ";
+	unordered_map<string, Item>::iterator itr;
+	for (itr = inventory.begin(); itr != inventory.end(); itr++) {
+		inventoryStr += itr->first + ' ';
+	}
 
-    return (inventoryStr + "\n" + equippedStr);
+	string equippedStr = "Equipped: ";
+	unordered_map<string, Item>::iterator itr;
+	for (itr = equipped.begin(); itr != equipped.end(); itr++) {
+		equippedStr += itr->first + ' ';
+	}
+
+	return (inventoryStr + "\n" + equippedStr);
+}
+
+void Character::changeSpeed(int s) {
+	speed += s;
+}
+
+const double Character::getMaxHP() const{
+	return orighp;
 }
