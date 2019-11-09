@@ -6,6 +6,7 @@
 #define CUTIEHACK_2019_PROJECT_PRINTER_H
 #include <iostream>
 #include <string>
+#include <windows.h>
 using namespace std;
 class Printer {
 public:
@@ -15,7 +16,7 @@ public:
         int delay = 200;
         for(int i = 0; i < thing.size(); i++) {
             cout << thing[i];
-            Sleep(delay)
+            Sleep(delay);
         }
     }
 };
