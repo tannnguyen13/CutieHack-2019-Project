@@ -17,7 +17,11 @@ int Item::getDefense(){
     return defense;
 }
 
-int Items::setHealth(amount){
-    health+= amount;
+int Items:: getHealth() {
+    return health;
+}
+
+int Item::getMana(); {
+    return mana;
 }
 
