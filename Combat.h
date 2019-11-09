@@ -1,0 +1,8 @@
+//
+// Created by Tann Nguyen on 11/9/19.
+//
+
+#ifndef CUTIEHACK_2019_PROJECT_COMBAT_H
+#define CUTIEHACK_2019_PROJECT_COMBAT_H
+
+#endif //CUTIEHACK_2019_PROJECT_COMBAT_H
