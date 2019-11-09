@@ -6,47 +6,58 @@ Combat::Combat(Character& player, Character& enemy) {
 }
 
 void Combat::processCommand(Command cmd) {
-	Command commandWord = cmd.getCommandWord();
+	CommandWord commandWord = cmd.getCommandWord();
 	switch (commandWord) {
-	case UNKNOWN:
-		cout << "I don't know what you mean... " << endl
-	case ATTACK:
-		if (player.getSpeed() > enemy.getSpeed()) {
-			attack();
-			bestEnemyMove();
+		case CommandWord::UNKNOWN: {
+			cout << "I don't know what you mean... " << endl;
 		}
-		else {
-			bestEnemyMove();
-			attack();
+		case CommandWord::ATTACK: {
+			if (player.getSpeed() > enemy.getSpeed()) {
+				attack();
+				bestEnemyMove();
+				break;
+			}
+			else {
+				bestEnemyMove();
+				attack();
+				break;
+			}
 		}
-
-	case DEFEND:
-		if (player.getSpeed() > enemy.getSpeed()) {
-			defend();
-			bestEnemyMove();
+		case CommandWord::DEFEND:{
+			if (player.getSpeed() > enemy.getSpeed()) {
+				defend();
+				bestEnemyMove();
+				break;
+			}
+			else {
+				bestEnemyMove();
+				defend();
+				break;
+			}
 		}
-		else {
-			bestEnemyMove();
-			defend();
+		case CommandWord::MAGIC: {
+			if (player.getSpeed() > enemy.getSpeed()) {
+				magic();
+				bestEnemyMove();
+				break;
+			}
+			else {
+				bestEnemyMove();
+				magic();
+				break;
+			}
 		}
-	case MAGIC:
-		if (player.getSpeed() > enemy.getSpeed()) {
-			magic();
-			bestEnemyMove();
-		}
-		else {
-			bestEnemyMove();
-			magic();
-		}
-
-	case ITEM:
-		if (player.getSpeed() > enemy.getSpeed()) {
-			item();
-			bestEnemyMove();
-		}
-		else {
-			bestEnemyMove();
-			item();
+		case CommandWord::ITEM: {
+			if (player.getSpeed() > enemy.getSpeed()) {
+				item();
+				bestEnemyMove();
+				break;
+			}
+			else {
+				bestEnemyMove();
+				item();
+				break;
+			}
 		}
 	}
 }
@@ -275,8 +286,13 @@ void Combat::enemyDefend() {
 }
 
 void Combat::bestEnemyMove() {
+	
 	double damageNorm = enemy.getStrength() - player.getDefense();
 	double damageMagic = enemy.getMagic() - player.getDefense();
+	if (player.checkEquip("shield")) {
+		damageNorm *= .2;
+		damageMagic *= .7;
+	}
 
 	if (enemy.getHP() > enemy.getMaxHP() / 5) {
 		int attackPrioritize = rand() % 101;
@@ -288,7 +304,7 @@ void Combat::bestEnemyMove() {
 			enemyMagicDebuff();
 		}
 		else {
-			if ((damageNorm > damageMagic && !player.checkEquip("shield")) || enemy.getMana() < 20) {
+			if ((damageNorm > damageMagic) || enemy.getMana() < 20) {
 				enemyAttack();
 				return;
 			}
@@ -307,7 +323,7 @@ void Combat::bestEnemyMove() {
 				return;
 			}
 			else {
-				if ((damageNorm > damageMagic && !player.checkEquip("shield")) || enemy.getMana() < 20) {
+				if ((damageNorm > damageMagic) || enemy.getMana() < 20) {
 					enemyAttack();
 					return;
 				}
