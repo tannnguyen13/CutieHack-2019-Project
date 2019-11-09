@@ -5,13 +5,16 @@ using namespace std;
 
 class Item{
     public:
-        Item(int, int);
-        const getStrength();
-        const getDefense();
-        setHealth();
+        Item(int, int, int, int);
+        int getStrength();
+        int getDefense();
+        int getHealth();
+        int getMana();
     private:
         int strength;
         int defense;
+        int health;
+        int mana;
 };
 
 
