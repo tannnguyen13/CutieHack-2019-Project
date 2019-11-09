@@ -1,22 +1,23 @@
-#include <iostream>
 #include "Item.h"
 
 using namespace std;
 
-Item::Item(int str, int def){
+Item::Item(int str, int def, int hlth, int mna){
     strength = str;
     defense = def;
+    health = hlth;
+    mana = mna;
 }
 
-Item::getStrength(){
+int Item::getStrength(){
     return strength;
 }
 
-Item::getDefense(){
+int Item::getDefense(){
     return defense;
 }
 
-Items::setHealth(amount){
+int Items::setHealth(amount){
     health+= amount;
 }
 
