@@ -19,6 +19,8 @@ Character::Character() {
 	magic = 0;
 	strength = 0;
 	alive = false;
+	equipped = new unordered_map<string, Item>;
+	inventory = new unordered_map<string, Item>;
 }
 
 Character::Character(string n) {
@@ -35,7 +37,7 @@ Character::Character(string n) {
 	speed = 5;
 	magic = 10;
 	strength = 15;
-	alive = true
+	alive = true;
 }
 
 Character::Character(string n, double h, int mn, int lvl, int exp, int hR, double dmg, double crit, int def, int s, int mg, int str, bool a) {
@@ -125,11 +127,16 @@ void Character::status() {
 	cout << "Mana: " << mana << endl;
 }
 void Character::equip(string n) {
-	equipped.insert(name, inventory.erase(name));
+//	equipped->insert(n, inventory->erase(n));
+
+	//equipped->at(n);
+	pair<string, Item> thing("Sword", Item(n, 5, 5, 5, 5));
+	inventory->erase(n);
+	equipped->insert(thing);
 }
 
 bool Character::checkEquip(string n) {
-	if (equipped.find(n) == equipped.end())
+	if (equipped->find(n) == equipped->end())
 		return false;
 	else
 		return true;
@@ -191,20 +198,20 @@ const bool Character::getAlive() const {
 }
 
 const Item Character::getEquip(string n) {
-	return equipped.at(n);
+	return equipped->at(n);
 }
 
 string Character::getItemKey() const{
 	string inventoryStr = "Inventory: ";
-	unordered_map<string, Item>::iterator itr;
-	for (itr = inventory.begin(); itr != inventory.end(); itr++) {
-		inventoryStr += itr->first + ' ';
+	//unordered_map<string, Item>::iterator itr;
+	for (auto i = inventory->begin(); i != inventory->end(); i++) {
+		inventoryStr += i->first + ' ';
 	}
 
 	string equippedStr = "Equipped: ";
-	unordered_map<string, Item>::iterator itr;
-	for (itr = equipped.begin(); itr != equipped.end(); itr++) {
-		equippedStr += itr->first + ' ';
+	//unordered_map<string, Item>::iterator itr;
+	for (auto i = equipped->begin(); i != equipped->end(); i++) {
+		equippedStr += i->first + ' ';
 	}
 
 	return (inventoryStr + "\n" + equippedStr);
@@ -216,4 +223,12 @@ void Character::changeSpeed(int s) {
 
 const double Character::getMaxHP() const{
 	return orighp;
+}
+
+bool Character::checkTied() {
+	return tied;
+}
+
+void Character::changeTied() {
+	tied = !tied;
 }
