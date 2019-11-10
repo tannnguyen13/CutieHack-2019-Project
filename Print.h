@@ -1,5 +1,6 @@
-#ifndef PRINT_H
-#define PRINT_H
+#ifndef CUTIEHACK_2019_PROJECT_PRINTER_H
+#define CUTIEHACK_2019_PROJECT_PRINTER_H
+
 #include <iostream>
 #include <string>
 #include <thread>
@@ -7,9 +8,8 @@
 
 using namespace std;
 
-class Printer {
-public:
-    void print();
+namespace Print {
+	void print();
 };
 
 #endif 

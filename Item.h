@@ -3,18 +3,20 @@
 #include <string>
 using namespace std;
 
-class Item{
-    public:
-        Item(int, int, int, int);
-        int getStrength();
-        int getDefense();
-        int getHealth();
-        int getMana();
-    private:
-        int strength;
-        int defense;
-        int health;
-        int mana;
+class Item {
+public:
+	Item(string, int, int, int, int);
+	string getString();
+	int getStrength();
+	int getDefense();
+	int getHealth();
+	int getMana();
+private:
+	string name;
+	int strength;
+	int defense;
+	int health;
+	int mana;
 };
 
 

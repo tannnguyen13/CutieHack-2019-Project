@@ -2,26 +2,30 @@
 
 using namespace std;
 
-Item::Item(int str, int def, int hlth, int mna){
-    strength = str;
-    defense = def;
-    health = hlth;
-    mana = mna;
+Item::Item(string n, int str, int def, int hlth, int mna) {
+	name = n;
+	strength = str;
+	defense = def;
+	health = hlth;
+	mana = mna;
 }
 
-int Item::getStrength(){
-    return strength;
+string Item::getString() {
+	return name;
 }
 
-int Item::getDefense(){
-    return defense;
+int Item::getStrength() {
+	return strength;
 }
 
-int Items:: getHealth() {
-    return health;
+int Item::getDefense() {
+	return defense;
 }
 
-int Item::getMana(); {
-    return mana;
+int Item::getHealth() {
+	return health;
 }
 
+int Item::getMana() {
+	return mana;
+}
