@@ -1,24 +1,20 @@
-//
-// Created by Tann Nguyen on 11/9/19.
-//
-
 #ifndef CUTIEHACK_2019_PROJECT_COMBAT_H
 #define CUTIEHACK_2019_PROJECT_COMBAT_H
 
 #include "Character.h"
 #include "Parser.h"
 #include "Command.h"
-#include "Printer.h"
+#include "Print.h"
 #include <iostream>
 
 class Combat {
 private:
-	Character player;
+	Character* player;
 	Character enemy;
-	void processCommand(string s);
+	bool processCommand(string s);
 
 public:
-	Combat(Character&, Character&);
+	Combat(Character*&, Character&);
 	void engage();
 	void attack(); 
 

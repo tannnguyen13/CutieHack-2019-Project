@@ -1,7 +1,20 @@
 #include "Command.h"
 
+Command::Command() {
+	commandWord = "";
+	secondWord = "";
+	commands = { "GO", "QUIT", "HELP", "ENGANGE", "SNEAK", "GRAB", "USE", "LOOK", "INVENTORY", "EQUIP", "ATTACK", "DEFEND", "MAGIC" };
+}
+
 Command::Command(string commandWord) {
 	this->commandWord = commandWord;
+	secondWord = "";
+	commands = { "GO", "QUIT", "HELP", "ENGANGE", "SNEAK", "GRAB", "USE", "LOOK", "INVENTORY", "EQUIP", "ATTACK", "DEFEND", "MAGIC" };
+}
+
+Command::Command(string commandWord, string secondWord) {
+	this->commandWord = commandWord;
+	this->secondWord = secondWord;
 	commands = { "GO", "QUIT", "HELP", "ENGANGE", "SNEAK", "GRAB", "USE", "LOOK", "INVENTORY", "EQUIP", "ATTACK", "DEFEND", "MAGIC" };
 }
 
@@ -31,3 +44,12 @@ const string Command::getCommandWord(){
 	}
 	return commandWord;
 }
+
+bool Command::hasSecondWord() {
+	return secondWord != "";
+}
+
+string Command::getSecondWord() {
+	return secondWord;
+}
+ 

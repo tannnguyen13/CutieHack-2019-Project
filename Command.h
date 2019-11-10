@@ -10,12 +10,18 @@ using namespace std;
 class Command {
 private:
 	string commandWord;
+	string secondWord;
 	vector<string> commands;
 public:
+	Command();
 	Command(string);
+	Command(string, string);
 	bool validCommand();
 	void showAll();
 	const string getCommandWord(); 
+	bool hasSecondWord();
+	string getSecondWord();
+
 };
 
 #endif

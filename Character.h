@@ -1,7 +1,3 @@
-//
-// Created by Tann Nguyen on 11/9/19.
-//
-
 #ifndef CUTIEHACK_2019_PROJECT_CHARACTER_H
 #define CUTIEHACK_2019_PROJECT_CHARACTER_H
 
@@ -28,8 +24,9 @@ private:
 	int magic;
 	int strength;
 	bool alive;
-	unordered_map<string, Item> inventory;
-	unordered_map<string, Item> equipped;
+	bool tied = false;
+	unordered_map<string, Item>* inventory;
+	unordered_map<string, Item>* equipped;
 
 public:
 	Character();
@@ -62,7 +59,33 @@ public:
 	void equip(string n);
 	bool checkEquip(string n);
 	void changeSpeed(int s);
+	bool checkTied();
+	void changeTied();
 	const Item getEquip(string n);
+	void setItem(string, Item) {
+		
+	}
+	void updateStatus() {
+		cout << "Health: " << hp << endl;
+		cout << "Mana: " << mana << endl;
+	}
+	Item getItem(string s) {
+		if (s == "sword") {
+			return Item("sword", 15, 0, 0, 0);
+		}
+		else if (s == "shield") {
+			return Item("Shield", 0, 15, 0, 0);
+		}
+		else if (s == "necklace") {
+
+		}
+		else if (s == "health potion") {
+			return Item("health potion", 0, 0, 15, 0);
+		}
+		else if (s == "mana potion") {
+			return Item("mana potion", 0, 0, 0, 15);
+		}
+	}
 	//const string print();
 	string getItemKey() const;
 };
