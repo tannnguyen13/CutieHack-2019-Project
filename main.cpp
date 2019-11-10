@@ -56,6 +56,7 @@ void Game::createRooms() {
 	guardroom->setExit("west", armory);
 	guardroom->setExit("east", storageroom);
 	guardroom->setExit("south", dungeon);
+	guardroom->setNPC("skeleton", skeleton);
 
 	storageroom->setExit("west", guardroom);
 	//storageroom->setItems("food", food);
@@ -151,6 +152,9 @@ void Game::goRoom(Command command)
 		if (!nextRoom.checkLock()) {
 			if (currentRoom->checkNPC()) {
 				*currentRoom = nextRoom;
+				if (nextRoom.getShortDescription() == "guardroom") {
+					cout << "There's a skeleton!" << endl;
+				}
 				cout << ("You walk to the " + direction + " door. ");
 				//cout << Long("");
 				cout << currentRoom->getLongDescription() << endl;
@@ -164,6 +168,9 @@ void Game::goRoom(Command command)
 				}
 				else {
 					*currentRoom = nextRoom;
+					if (nextRoom.getShortDescription() == "guardroom") {
+						cout << "There's a skeleton!" << endl;
+					}
 					cout << ("You walk to the " + direction + " door. ");
 					//cout << Long("");
 					cout << currentRoom->getLongDescription() << endl;
@@ -178,6 +185,9 @@ void Game::goRoom(Command command)
 				}
 				else {
 					*currentRoom = nextRoom;
+					if (nextRoom.getShortDescription() == "guardroom") {
+						cout << "There's a skeleton!" << endl;
+					}
 					cout << ("You walk to the " + direction + " door. ");
 					//cout << Long("");
 					cout << currentRoom->getLongDescription() << endl;
@@ -270,17 +280,17 @@ bool Game::quit(Command command)
 
 void Game::grab(Command command) {
 	if (!command.hasSecondWord()) {
-		cout << ("Grab what?");
+		cout << ("Grab what?\n");
 		return;
 	}
 	string item = command.getSecondWord();
 	if (currentRoom->getItems(item).getString() != Item("", 0, 0, 0, 0).getString()) {
 		p1->setItem(item, currentRoom->getItems(item));
 		currentRoom->removeItem(item);
-		cout << ("You have grabbed the " + item);
+		cout << ("You have grabbed the " + item) << endl;
 	}
 	else {
-		cout << ("That isn't in this room.");
+		cout << ("That isn't in this room.")<< endl;
 		return;
 	}
 	//cout << (p1.getItemString());
@@ -368,6 +378,7 @@ bool Game::processCommand(Command command)
 		cout << "I don't know what you mean..." << endl;
 		wantToQuit = true;
 	}
+	return wantToQuit;
 }
 
 void Game::play() {
@@ -388,8 +399,8 @@ void Game::play() {
 		}
 		cout << "What do you want to do? " << endl;
 		Command command = this->parser->getCommand();
-		if (processCommand(command) || currentRoom->checkExits()) {
-			
+		if (running = processCommand(command) || currentRoom->checkExits()) {
+		
 		}
 		if (p1->getHP() < 1) {
 			std::cout << "You have fallen in battle." << endl;

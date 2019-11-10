@@ -58,11 +58,11 @@ void Room::setItems(string name, Item* item) {
 }
 
 Item Room::getItems(string name) const {
-	if (name == "nameword") {
-		return Item("nameword", 15, 0, 0, 0);
+	if (name == "sword") {
+		return Item("sword", 15, 0, 0, 0);
 	}
-	else if (name == "namehield") {
-		return Item("namehield", 0, 15, 0, 0);
+	else if (name == "shield") {
+		return Item("shield", 0, 15, 0, 0);
 	}
 	else if (name == "necklace") {
 

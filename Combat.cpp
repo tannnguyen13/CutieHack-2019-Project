@@ -6,7 +6,7 @@ Combat::Combat(Character*& player, Character& enemy) {
 }
 
 bool Combat::processCommand(string s) {
-	Command commandWord = Command(s);
+	Command commandWord(s);
 	if (commandWord.getCommandWord() == "ATTACK") {
 		if (player->getSpeed() > enemy.getSpeed()) {
 			attack();
@@ -59,7 +59,7 @@ bool Combat::processCommand(string s) {
 		return true;
 	}
 	else {
-		cout << "I don't know what you mean->->-> " << endl;
+		cout << "I don't know what you mean... " << endl;
 		return false;
 	}
 }
@@ -68,7 +68,7 @@ void Combat::engage() {
 	cout << enemy.getName() << + " is battling you!" << endl;
 	bool wantToQuit = false;
 	while (player->getAlive() && enemy.getAlive() && !wantToQuit) {
-		cout << "ATTACK\n DEFEND\n MAGIC\n ITEM\n" << endl;
+		cout << "ATTACK\nDEFEND\nMAGIC\nITEM\n" << endl;
 		string s = "";
 		cin >> s;
 		wantToQuit = processCommand(s);
@@ -114,7 +114,7 @@ void Combat::item() {
 void Combat::magicAttack() {
 	if (player->getMana() >= 10) {
 		int hit = rand() % 101;
-		if (hit > player->getHitRate()) {
+		if (hit < player->getHitRate()) {
 			int temp = player->getMagic() - enemy.getDefense();
 			int crit = rand() % 101;
 			if (crit > player->getCritChance()) {
@@ -155,7 +155,7 @@ void Combat::heal() {
 void Combat::debuff() {
 	if (player->getMana() >= 10) {
 		int hit = rand() % 101;
-		if (hit > player->getHitRate()) {
+		if (hit < player->getHitRate()) {
 			enemy.changeSpeed(-2);
 			cout << "You cast a debuff on the " << enemy.getName() << endl;
 			cout << enemy.getName() << " Speed: -2\t Current Speed: " << enemy.getSpeed() << endl;
@@ -207,7 +207,7 @@ void Combat::defend() {
 
 void Combat::enemyAttack() {
 	int hit = rand() % 101;
-	if (hit > enemy.getHitRate()) {
+	if (hit < enemy.getHitRate()) {
 		int temp = enemy.getStrength() - player->getDefense();
 		int crit = rand() % 101;
 		if (crit > enemy.getCritChance())
@@ -215,7 +215,7 @@ void Combat::enemyAttack() {
 		int dmg = temp + rand() % 3;
 		if (player->checkEquip("shield")) {
 			cout << "TINK" << endl;
-			cout << enemy.getName() << "attempts to hit you but you reflect the majority of the damage with your shield->" << endl;
+			cout << enemy.getName() << "attempts to hit you but you reflect the majority of the damage with your shield." << endl;
 			dmg *= .2;
 		}
 		player->takeDamage(dmg);
@@ -223,7 +223,7 @@ void Combat::enemyAttack() {
 	}
 	else {
 		cout << "WHOOSH" << endl;
-		cout << "The " << enemy.getName() << " tries to hit you but misses->" << endl;
+		cout << "The " << enemy.getName() << " tries to hit you but misses." << endl;
 	}
 
 	if (!player->getAlive()) {
@@ -247,7 +247,7 @@ void Combat::enemyMagicAttack() {
 		}
 		else {
 			cout << "WHOOSH" << endl;
-			cout << "The " << enemy.getName() << "'s fireball wizzes by you head, missing you entirely-> " << endl;
+			cout << "The " << enemy.getName() << "'s fireball wizzes by you head, missing you entirely. " << endl;
 		}
 		cout << enemy.getName() << " Mana: -10" << endl;
 		enemy.addMana(-10);
@@ -317,6 +317,7 @@ void Combat::bestEnemyMove() {
 		}
 		else if (attackPrioritize < 10 && enemy.getMana() >= 10) {
 			enemyMagicDebuff();
+			return;
 		}
 		else {
 			if ((damageNorm > damageMagic) || enemy.getMana() < 10) {

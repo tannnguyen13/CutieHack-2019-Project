@@ -130,16 +130,25 @@ void Character::equip(string n) {
 //	equipped->insert(n, inventory->erase(n));
 
 	//equipped->at(n);
-	pair<string, Item> thing("Sword", Item(n, 5, 5, 5, 5));
-	inventory->erase(n);
-	equipped->insert(thing);
+	if (n == "sword") {
+		inventory->erase(n);
+		equipped->insert({ n, Item("sword", 15, 0,0,0) });
+	}
+	else if (n == "shield") {
+		inventory->erase(n);
+		equipped->insert({ n, Item("shield", 0, 15,0,0) });
+	}
+	
 }
 
 bool Character::checkEquip(string n) {
-	if (equipped->find(n) == equipped->end())
-		return false;
-	else
-		return true;
+	if (n == "sword") {
+		
+	}
+	else if (n == "shield") {
+
+	}
+	return false;
 }
 
 const string Character::getName() const {
